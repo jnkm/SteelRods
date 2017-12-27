@@ -1,0 +1,46 @@
+
+{
+	"buildFiles" : [ "C:/Users/Jordan/Documents/Dev/SteelRods/app/CMakeLists.txt" ],
+	"cleanCommands" : 
+	[
+		"C:\\Users\\Jordan\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\Users\\Jordan\\Documents\\Dev\\SteelRods\\app\\.externalNativeBuild\\cmake\\release\\x86_64 --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"lib_opencv-Release-x86_64" : 
+		{
+			"abi" : "x86_64",
+			"artifactName" : "lib_opencv",
+			"buildType" : "release",
+			"output" : "C:/Users/Jordan/Documents/Dev/SteelRods/app/src/main/jniLibs/x86_64/libopencv_java3.so",
+			"toolchain" : "4063807417"
+		},
+		"native-lib-Release-x86_64" : 
+		{
+			"abi" : "x86_64",
+			"artifactName" : "native-lib",
+			"buildCommand" : "C:\\Users\\Jordan\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\Users\\Jordan\\Documents\\Dev\\SteelRods\\app\\.externalNativeBuild\\cmake\\release\\x86_64 --target native-lib",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=C:/Users/Jordan/AppData/Local/Android/Sdk/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/Jordan/AppData/Local/Android/Sdk/ndk-bundle/sysroot  -Dnative_lib_EXPORTS -IC:\\Users\\Jordan\\Documents\\Dev\\SteelRods\\OpenCV-android-sdk\\sdk\\native\\jni\\include -isystem C:\\Users\\Jordan\\AppData\\Local\\Android\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem C:\\Users\\Jordan\\AppData\\Local\\Android\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\x86_64\\include -isystem C:\\Users\\Jordan\\AppData\\Local\\Android\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem C:/Users/Jordan/AppData/Local/Android/Sdk/ndk-bundle/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=23 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++11 -std=gnu++11 -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "C:/Users/Jordan/Documents/Dev/SteelRods/app/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "C:/Users/Jordan/Documents/Dev/SteelRods/app/.externalNativeBuild/cmake/release/x86_64"
+				}
+			],
+			"output" : "C:/Users/Jordan/Documents/Dev/SteelRods/app/build/intermediates/cmake/release/obj/x86_64/libnative-lib.so",
+			"toolchain" : "4063807417"
+		}
+	},
+	"toolchains" : 
+	{
+		"4063807417" : 
+		{
+			"cCompilerExecutable" : "C:/Users/Jordan/AppData/Local/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "C:/Users/Jordan/AppData/Local/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}
