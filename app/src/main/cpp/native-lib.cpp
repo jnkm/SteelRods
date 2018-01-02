@@ -1,34 +1,24 @@
+
 #include <jni.h>
 #include <string>
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/features2d.hpp>
 
 extern "C" {
 
-
-JNIEXPORT jstring
-
-JNICALL
-Java_com_example_jordan_steelrods_ImagePreview_stringFromJNI(
-        JNIEnv *env,
-        jobject /* this */) {
-    std::string hello = "Hello from C++";
-    return env->NewStringUTF(hello.c_str());
-}
-
-jstring
-Java_com_example_jordan_steelrods_ImagePreview_imageTest(JNIEnv *env, jobject, jlong addrImage)
+void convertToGrayScale(jlong addrImage)
 {
     cv::Mat* inputImage_p = (cv::Mat*)addrImage;
     cv::cvtColor(*inputImage_p, *inputImage_p, CV_BGR2GRAY);
-    std::string hello2 = "Hello from imageTest";
-    return env->NewStringUTF(hello2.c_str());
 }
 
-jstring
-Java_com_example_jordan_steelrods_ImagePreview_getBlobKeypoints(JNIEnv *env, jobject, jlong addrImage)
-{
-// Setup SimpleBlobDetector parameters.
+void
+Java_com_example_jordan_steelrods_ImagePreview_getBlobKeypoints(JNIEnv *env, jobject,
+                                                                jlong addrImage) {
+    // Firstly convert the input image to grey.
+    convertToGrayScale(addrImage);
+
     cv::SimpleBlobDetector::Params params;
 
     // Change thresholds
@@ -53,39 +43,20 @@ Java_com_example_jordan_steelrods_ImagePreview_getBlobKeypoints(JNIEnv *env, job
 
     params.blobColor = 255;
 
-#if CV_MAJOR_VERSION < 3   // If you are using OpenCV 2
+    // Set up detector with params.
+    cv::Ptr<cv::SimpleBlobDetector> detector = cv::SimpleBlobDetector::create(params);
 
-    // Set up detector with params
-	SimpleBlobDetector detector(params);
+    std::vector<cv::KeyPoint> keypoints;
 
-	// You can use the detector this way
-	// detector.detect( im, keypoints);
+    cv::Mat* inputImage_p = (cv::Mat*)addrImage;
 
-#else
+    detector->detect(*inputImage_p, keypoints);
 
-    // Set up detector with params
-    cv::Ptr<SimpleBlobDetector> detector = SimpleBlobDetector::create(params);
-
-    // SimpleBlobDetector::create creates a smart pointer.
-    // So you need to use arrow ( ->) instead of dot ( . )
-    // detector->detect( im, keypoints);
-
-#endif
-
-    vector<KeyPoint> keypoints;
-
-    detector->detect(img, keypoints);
-
-    return keypoints;
-}
-
-jstring
-Java_com_example_jordan_steelrods_ImagePreview_addKeypointsToImage(JNIEnv *env, jobject, jlong addrImage)
-{
-    cv::Mat img_with_keypoints;
-    drawKeypoints(image, keypoints, img_with_keypoints, Scalar(0,0,255), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-
-    return img_with_keypoints;
+    // This will override the given image. We can't return Mats or images from native methods to
+    // the java code. Instead we must overrise the memory address passed in as the argument.
+    cv::drawKeypoints(*inputImage_p, keypoints, *inputImage_p,
+                      cv::Scalar(0, 0, 255), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 }
 
 }
+
