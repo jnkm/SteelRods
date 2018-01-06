@@ -13,6 +13,8 @@ import org.opencv.core.CvException;
 import org.opencv.core.KeyPoint;
 import org.opencv.core.Mat;
 
+import java.io.File;
+
 public class ImagePreview extends AppCompatActivity {
 
     private Button mCountButton;
@@ -31,10 +33,12 @@ public class ImagePreview extends AppCompatActivity {
 
         setUpButtons();
 
-        Intent intentExtras = getIntent();
-        byte[] byteArray = getIntent().getByteArrayExtra("image");
+        String path = getIntent().getStringExtra("img_path");
 
-        mImage = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        File pic = new File(path);
+        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+        mImage = BitmapFactory.decodeFile(pic.getAbsolutePath(),
+                bitmapOptions);
 
         displayImage();
 
