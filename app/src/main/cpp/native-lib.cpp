@@ -13,7 +13,7 @@ void convertToGrayScale(jlong addrImage)
     cv::cvtColor(*inputImage_p, *inputImage_p, CV_BGR2GRAY);
 }
 
-void
+jint
 Java_com_example_jordan_steelrods_ImagePreview_getBlobKeypoints(JNIEnv *env, jobject,
                                                                 jlong addrImage) {
     // Firstly convert the input image to grey.
@@ -56,6 +56,7 @@ Java_com_example_jordan_steelrods_ImagePreview_getBlobKeypoints(JNIEnv *env, job
     // the java code. Instead we must overrise the memory address passed in as the argument.
     cv::drawKeypoints(*inputImage_p, keypoints, *inputImage_p,
                       cv::Scalar(0, 0, 255), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+    return (int) keypoints.size();
 }
 
 }

@@ -19,6 +19,7 @@ public class ImagePreview extends AppCompatActivity {
 
     private Button mCountButton;
     private Bitmap mImage;
+    private int mCount;
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -63,7 +64,7 @@ public class ImagePreview extends AppCompatActivity {
     private void runBlobDetection() {
         Mat m = new Mat();
         Utils.bitmapToMat(mImage, m);
-        getBlobKeypoints(m.getNativeObjAddr());
+        mCount = getBlobKeypoints(m.getNativeObjAddr());
         Bitmap bmp = null;
         try {
             bmp = Bitmap.createBitmap(m.cols(), m.rows(), Bitmap.Config.ARGB_8888);
@@ -76,8 +77,9 @@ public class ImagePreview extends AppCompatActivity {
     private void displayImage() {
         ImageView imageView = (ImageView) findViewById(R.id.imageView2);
         imageView.setImageBitmap(mImage);
+        mCountButton.setText("Count is: " + mCount);
     }
 
-    public native void getBlobKeypoints(long image);
+    public native int getBlobKeypoints(long image);
 
 }
